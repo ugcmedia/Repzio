@@ -2,7 +2,11 @@
   <div v-if="loaded" class="center">
     <div class="inline" v-for="(item, index) in items" :key="index">
       <div @click="show_modal(item)" class="card_container">
-        <img :src="item.PhotoName" alt="" class="photo_name" />
+        <img
+          :src="item.PhotoName + '?width=170&height=180'"
+          alt="Product_Photo"
+          class="photo_name"
+        />
         <div class="item_name">
           {{ item.ItemName }}
         </div>
@@ -22,20 +26,20 @@
       class="modal"
     >
       <div>
-        <span @click="hide_modal" class="close">&times;</span>
+        <i @click="hide_modal" class="fal fa-times close"></i>
       </div>
       <div class="modal-content">
         <div class="product_container">
-          <img
-            :src="modal.PhotoName"
-            alt="Product"
-            class="product_photo_name"
-          />
-          <div>
-            <button class="count_btn" @click="increment">+</button>
-            <button class="count">{{ count }}</button>
-            <button class="count_btn" @click="decrement">-</button>
-            <button class="base_price_modal">${{ modal.BasePrice }}</button>
+          <img :src="modal.PhotoName" alt="Product" width="462" height="450" />
+          <div class="buttons">
+            <div class="inline first_group">
+              <button class="count_btn plus" @click="increment">+</button>
+              <button class="count">{{ count }}</button>
+              <button class="count_btn minus" @click="decrement">-</button>
+            </div>
+            <div class="inline">
+              <button class="base_price_modal">${{ modal.BasePrice }}</button>
+            </div>
           </div>
           <div class="item_name_modal">
             <div>{{ modal.itemName }}</div>
@@ -48,83 +52,20 @@
               <p class="description inline">{{ modal.Dimensions }}</p>
             </div>
             <div class="block">
-              <p class="description">
+              <p class="description_text">
                 {{ modal.Description }}
               </p>
             </div>
           </div>
           <div class="center footer">
             <button @click="show_contact_modal" class="contact_button inline">
-              <i class="fa fa-phone fa-2x"
-                >&nbsp; <span class="footer_btn">Contact me</span>
-              </i>
+              <i class="fad fa-user-headset fa-2x"></i>
+              <span class="footer_btn">Contact me</span>
             </button>
             <button class="cart_button inline">
-              <i class="fa fa-cart-arrow-down fa-2x"
-                ><span class="footer_btn">Add to Cart</span></i
-              >
+              <i class="fad fa-cart-arrow-down fa-2x"></i>
+              <span class="footer_btn">Add to Cart</span>
             </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      v-if="clicked_contact"
-      id="contact"
-      @click="exit_contact_modal"
-      class="modal"
-    >
-      <div>
-        <span @click="hide_contact_modal" class="close">&times;</span>
-      </div>
-      <div class="modal-content">
-        <div class="contact_container">
-          <div class="header">
-            <div class="contact_logo">
-              <img
-                :src="
-                  'http://images.repzio.com/productimages/' +
-                    logo +
-                    '/logo' +
-                    logo +
-                    '_lg.jpg'
-                "
-                alt="logo"
-                height="50"
-                width="70"
-              />
-            </div>
-            <div>
-              <p class="sales_rep">
-                Sales Rep
-              </p>
-            </div>
-          </div>
-          <div class="sales_div">
-            <img
-              src="../assets/images/salesrep.jpg"
-              alt=""
-              class="sales_rep_image"
-            />
-          </div>
-          <div class="info">
-            <div class="text">{{ info.firstname }},{{ info.lastname }}</div>
-            <div class="text">{{ info.city }},{{ info.state }}</div>
-          </div>
-          <div class="contact_info">
-            <div class="contact_me">Email or call me direct</div>
-            <div>
-              <i class="fa fa-envelope fa-lg inline"
-                >&nbsp;<span class="font">Email</span>:</i
-              >
-              <p class="inline email">{{ info.email }}</p>
-            </div>
-            <div>
-              <i class="fa fa-phone fa-lg inline"
-                >&nbsp;<span class="font">Phone</span>:</i
-              >
-              <p class="inline phone">{{ info.phone }}</p>
-            </div>
           </div>
         </div>
       </div>
@@ -156,59 +97,12 @@ export default {
       modal: {}
     };
   },
-  // props: {
-  //   photoName: {
-  //     type: String,
-  //     default: ""
-  //   },
-  //   itemName: {
-  //     type: String,
-  //     default: ""
-  //   },
-  //   basePrice: {
-  //     type: Number,
-  //     default: null
-  //   },
-  //   itemId: {
-  //     type: String,
-  //     default: ""
-  //   },
-  //   itemDimensions: {
-  //     type: String,
-  //     default: ""
-  //   },
-  //   itemDescription: {
-  //     type: String,
-  //     default: ""
-  //   },
-  //   contactInfo: {
-  //     type: Object,
-  //     default: () => ({})
-  //   }
-  // },
   mounted() {
-    this.info.firstname = this.json.SalesRep.FirstName;
-    this.info.lastname = this.json.SalesRep.LastName;
-    this.info.city = this.json.SalesRep.City;
-    this.info.state = this.json.SalesRep.State;
-    this.info.email = this.json.SalesRep.EmailAddress;
-    this.info.phone = this.json.SalesRep.Phone;
     this.items = this.json.items;
     setTimeout(() => {
       this.loaded = true;
     }, 300);
     this.logo = this.items[0].ManufacturerID;
-  },
-  computed: {
-    url(name) {
-      return (
-        "http://images.repzio.com/productimages/" +
-        name +
-        "/logo" +
-        name +
-        "_lg.jpg"
-      );
-    }
   },
   methods: {
     show_modal(item) {
@@ -226,10 +120,7 @@ export default {
       this.clicked_product = false;
     },
     show_contact_modal() {
-      this.clicked_contact = true;
-    },
-    hide_contact_modal() {
-      this.clicked_contact = false;
+      this.$emit("show_modal");
     },
     exit_contact_modal(e) {
       var modal = document.getElementById("contact");
@@ -261,7 +152,6 @@ export default {
 .card_container {
   display: inline-block;
   vertical-align: top;
-  /* height: 380px; */
   width: 210px;
   background: #ffffff;
   border: 0 solid #c0c0c0;
@@ -273,8 +163,6 @@ export default {
 }
 
 .photo_name {
-  width: 170.1px;
-  height: 180px;
   margin: 9px;
 }
 .item_name {
@@ -294,6 +182,7 @@ export default {
   font-size: 24.3px;
   color: #9100a3;
   text-align: center;
+  outline: none;
 }
 .shop_button {
   width: 90%;
@@ -307,12 +196,14 @@ export default {
     #3e0045 100%
   );
   border-radius: 10px;
+  border: none;
   padding: 20px;
   font-family: Poppins;
   font-weight: 200;
   font-size: 18.63px;
   color: #ffffff;
   text-align: center;
+  outline: none;
 }
 .center {
   text-align: center;
@@ -340,7 +231,8 @@ export default {
   margin: auto;
   padding: 0;
   border: 1px solid #888;
-  width: 500px;
+  border-radius: 10px;
+  width: 480px;
   height: auto;
   overflow: hidden;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -376,13 +268,13 @@ export default {
 /* The Close Button */
 .close {
   position: absolute;
-  width: 40px;
-  height: 35px;
+  width: 34px;
+  height: 32px;
   color: #fff;
   background: #9100a3;
   z-index: 1;
   font-size: 35px;
-  font-weight: bold;
+  font-weight: lighter;
   border-radius: 5px;
   margin-top: -10px;
   margin-left: 220px;
@@ -396,7 +288,7 @@ export default {
 }
 /* product */
 .product_container {
-  width: 500px;
+  width: 480px;
   background: #ffffff;
   border: 0 solid #c0c0c0;
   box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.12);
@@ -405,13 +297,8 @@ export default {
   margin-right: 20px;
 }
 
-.product_photo_name {
-  width: 462px;
-  height: 450px;
-  /* margin: 23.3px; */
-}
 .base_price_modal {
-  border-radius: 5%;
+  border-radius: 10px;
   display: inline-block;
   width: 124px;
   height: 60px;
@@ -421,25 +308,31 @@ export default {
   font-size: 24.3px;
   color: #ffffff;
   text-align: center;
-  margin-left: 150px;
+  /* margin-left: 150px; */
+  outline: none;
+  border: none;
 }
 .count {
   width: 70px;
-  height: 50px;
-  border-radius: 5%;
+  height: 52px;
+  border-radius: 7px;
   background: #9100a3;
   font-family: Poppins;
   font-weight: 500;
   font-size: 24.3px;
   color: #ffffff;
   text-align: center;
-  margin-left: -2px;
-  margin-right: -2px;
+  margin-left: -5px;
+  margin-right: -5px;
+  position: relative;
+  outline: none;
+  border: none;
+  box-shadow: none !important;
 }
 .count_btn {
-  width: 54px;
+  width: 55px;
   height: 40px;
-  border-radius: 5%;
+  border-radius: 5px;
   background: #ffffff;
   font-family: Poppins;
   font-weight: 500;
@@ -447,13 +340,21 @@ export default {
   color: black;
   border-color: #9100a3;
   text-align: center;
+  outline: none;
+  /* z-index: 0; */
+}
+.plus {
+  border-right: none;
+}
+.minus {
+  border-left: none;
 }
 .count_btn:hover {
   cursor: pointer;
 }
 .item_name_modal {
   text-align: left !important;
-  margin-left: 50px;
+  padding-left: 40px;
   margin-top: 20px;
   font-family: Poppins;
   font-weight: 500;
@@ -465,7 +366,12 @@ export default {
 .inline {
   display: inline-block;
 }
-
+.buttons {
+  margin-top: 20px;
+}
+.first_group {
+  margin-right: 100px;
+}
 .label {
   font-family: Poppins;
   font-weight: 500;
@@ -479,12 +385,25 @@ export default {
   margin-right: 30px;
 }
 .description {
+  position: absolute;
+  max-width: 250px;
   font-family: Poppins;
   font-weight: 500;
   margin-left: 5px;
   font-size: 17.94px;
   color: #5e5e5e;
   margin-bottom: 5px;
+  overflow: wrap;
+}
+.description_text {
+  max-width: 420px;
+  font-family: Poppins;
+  font-weight: 500;
+  margin-left: 5px;
+  font-size: 17.94px;
+  color: #5e5e5e;
+  margin-bottom: 5px;
+  overflow: wrap;
 }
 
 .contact_button {
@@ -495,18 +414,19 @@ export default {
   background: none;
   border: 1px solid #9100a3;
   border-radius: 6px;
+  outline: none;
 }
 .contact_button:hover {
   cursor: pointer;
 }
 .cart_button {
-  background: yellow;
+  /* background: yellow; */
   margin-left: 20px;
   display: inline-block;
   height: 60px;
   width: 200px;
   color: #5e5e5e;
-  background-image: lineargradient(0deg, #ff9b00 0%, #fcd304 100%);
+  background-image: linear-gradient(0deg, #ff9b00 0%, #fcd304 100%);
   border: 0 solid #979797;
   border-radius: 6px;
 }
@@ -518,82 +438,10 @@ export default {
 .footer {
   margin-top: 100px;
 }
-
-/* Contact Modal css */
-.contact_container {
-  width: 480px;
-  background: #ffffff;
-  border: 0 solid #c0c0c0;
-  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.12);
-  border-radius: 2.7px;
-  padding-bottom: 50px;
-  padding-top: 30px;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  height: 50px;
-}
-.contact_logo {
-  margin-left: 20px;
-}
-.sales_rep {
-  font-family: Poppins;
-  font-weight: 800;
-  color: #9100a3;
-  font-size: 25px;
-  margin-top: 15px;
-  margin-right: 10px;
-}
-.sales_div {
-  text-align: center;
-}
-.sales_rep_image {
-  width: 462px;
-  height: 300px;
-}
-.info {
-  margin-top: -80px;
-  margin-bottom: 70px;
-}
-.text {
-  font-size: 25px;
-  font-family: Poppins;
-  font-weight: 500;
-}
-.contact_info {
-  text-align: center;
-}
-.contact_me {
-  font-size: 22px;
-  font-family: Poppins;
-  font-weight: 800;
-}
-.inline {
-  display: inline-block;
-}
-.email {
-  font-size: 20px;
-  margin-left: 4px;
-  font-family: Poppins;
-  font-weight: 500;
-}
-.phone {
-  font-size: 20px;
-  margin-left: 4px;
-  font-family: Poppins;
-  font-weight: 500;
-}
-.font {
-  font-family: Poppins;
-  font-weight: 800;
-}
 .footer_btn {
+  margin-left: 15px;
   font-family: Poppins;
-  font-size: 26px;
-  font-weight: 800;
+  font-size: 20px;
+  font-weight: 100;
 }
 </style>

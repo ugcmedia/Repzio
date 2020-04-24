@@ -3,32 +3,33 @@
     <div class="nav_container">
       <div class="box">
         <div>
-          <img v-if="loaded" :src="url" alt="logo" height="60" width="90" />
+          <img v-if="loaded" :src="url" alt="logo" />
         </div>
         <div>
           <button @click="show_modal" class="contact_button">
-            <i class="fa fa-phone fa-2x"
-              >&nbsp;<span class="contact_me_btn">Contact me</span></i
+            <i class="fad fa-user-headset fa-2x"></i>
+            <span class="contact_me_btn"
+              >Contact&nbsp;{{ info.firstname }}</span
             >
           </button>
         </div>
       </div>
     </div>
     <div class="main_image">
-      <img class="bg" src="../assets/images/main.jpeg" />
-      <div class="info_block">
+      <div class="cover"></div>
+      <div class="info_block_new">
         <p class="title">{{ info.companyname }}</p>
-        <div class="msg" v-html="info.message"></div>
+        <p class="msg" v-html="info.message"></p>
       </div>
     </div>
     <div v-if="loaded" class="products_container">
       <div class="content">
-        <ProductCard />
+        <ProductCard @show_modal="show_modal" />
       </div>
     </div>
     <div v-if="clicked" id="contact" class="modal center" @click="exit_modal">
-      <div>
-        <span @click="hide_modal" class="close">&times;</span>
+      <div class="center">
+        <i @click="hide_modal" class="fal fa-times close"></i>
       </div>
       <div class="modal-content">
         <div class="contact_container">
@@ -44,27 +45,30 @@
           </div>
           <div class="sales_div">
             <img
-              src="../assets/images/salesrep.jpg"
+              src="../assets/images/salesrep.jpeg"
               alt=""
-              class="sales_rep_image"
+              width="500"
+              height="310"
             />
           </div>
           <div class="info">
-            <div class="text">{{ info.firstname }},{{ info.lastname }}</div>
-            <div class="text">{{ info.city }},{{ info.state }}</div>
+            <div class="text_name">
+              {{ info.firstname }}&nbsp;{{ info.lastname }}
+            </div>
+            <div class="text_address">
+              {{ info.city }},&nbsp;{{ info.state }}
+            </div>
           </div>
           <div class="contact_info">
-            <div class="contact_me">Email or call me direct</div>
-            <div>
-              <i class="fa fa-envelope fa-lg inline"
-                >&nbsp;<span class="font">Email</span>:</i
-              >
+            <div class="contact_me">Email or Call Me Direct</div>
+            <div class="email_block">
+              <i class="fa fa-envelope fa-lg inline" style="color:#9100a3;"></i>
+              <span class="font">Email</span>:
               <p class="inline email">{{ info.email }}</p>
             </div>
-            <div>
-              <i class="fa fa-phone fa-lg inline"
-                >&nbsp;<span class="font">Phone</span>:</i
-              >
+            <div class="phone_block">
+              <i class="fa fa-phone fa-lg inline" style="color:#9100a3;"></i>
+              <span class="font">Phone</span>:
               <p class="inline phone">{{ info.phone }}</p>
             </div>
           </div>
@@ -105,10 +109,10 @@ export default {
     url() {
       return (
         "http://images.repzio.com/productimages/" +
-        this.items[0].ManufacturerID +
+        this.logo +
         "/logo" +
-        this.items[0].ManufacturerID +
-        "_lg.jpg"
+        this.logo +
+        "_lg.jpg?width=90&height=60"
       );
     }
   },
@@ -157,15 +161,14 @@ export default {
   display: flex;
   justify-content: space-between;
 }
-.bg {
-  max-width: 100%;
-  height: auto;
-  position: relative;
-  /* height: 700px; */
-  /* width: auto; */
-  z-index: 0;
+.cover {
+  background-image: url("https://ugcmedia.com/images/hero_1440_narrow4.png");
+  background-color: #898a8b;
+  height: 315px;
+  background-position: right bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-
 .main_image {
   position: relative;
   text-align: center;
@@ -189,7 +192,8 @@ export default {
 }
 .content {
   text-align: center;
-  margin-top: -150px;
+  margin-top: -20px;
+  margin-bottom: 5px;
 }
 .inline {
   display: inline-block;
@@ -206,9 +210,9 @@ export default {
   font-weight: 800;
 }
 .msg {
-  width: 400px;
-  font-size: 18px;
+  font-size: 17px;
   font-family: Poppins;
+  color: #fff;
   font-weight: 400;
 }
 
@@ -218,19 +222,12 @@ export default {
     width: auto;
   }
   .products_container {
-    width: 350px;
+    width: 250px;
     margin-left: auto;
     margin-right: auto;
   }
-  .content {
-    margin-top: -20px;
-  }
   .box {
     width: calc(100vw - 80px);
-  }
-  .info_block {
-    margin-top: -160px;
-    margin-left: 10px;
   }
 }
 @media (min-width: 600px) and (max-width: 800px) {
@@ -243,15 +240,8 @@ export default {
     margin-left: auto;
     margin-right: auto;
   }
-  .content {
-    margin-top: -20px;
-  }
   .box {
     width: calc(100vw - 80px);
-  }
-  .info_block {
-    margin-top: -250px;
-    margin-left: 30px;
   }
 }
 @media (min-width: 800px) and (max-width: 1200px) {
@@ -264,15 +254,8 @@ export default {
     margin-left: auto;
     margin-right: auto;
   }
-  .content {
-    margin-top: -50px;
-  }
   .box {
     width: calc(100vw - 80px);
-  }
-  .info_block {
-    margin-top: -300px;
-    margin-left: 100px;
   }
 }
 @media (min-width: 1200px) {
@@ -304,7 +287,8 @@ export default {
   margin: auto;
   padding: 0;
   border: 1px solid #888;
-  width: 500px;
+  border-radius: 10px;
+  width: 480px;
   height: auto;
   overflow: hidden;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -340,13 +324,13 @@ export default {
 /* The Close Button */
 .close {
   position: absolute;
-  width: 40px;
-  height: 35px;
+  width: 34px;
+  height: 32px;
   color: #fff;
   background: #9100a3;
   z-index: 1;
   font-size: 35px;
-  font-weight: bold;
+  font-weight: lighter;
   border-radius: 5px;
   margin-top: -10px;
   margin-left: 220px;
@@ -359,9 +343,9 @@ export default {
   cursor: pointer;
 }
 .contact_button {
-  display: inline-block;
+  margin-right: -50px;
   color: white;
-  width: 200px;
+  width: 250px;
   height: 60px;
   background: #9100a3;
   border: 1px solid #9100a3;
@@ -375,15 +359,14 @@ export default {
   box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.12);
   border-radius: 2.7px;
   padding-bottom: 50px;
-  padding-top: 30px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-top: 20px;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   height: 50px;
+  padding-bottom: 10px;
 }
 .contact_logo {
   margin-left: 20px;
@@ -394,36 +377,43 @@ export default {
   color: #9100a3;
   font-size: 25px;
   margin-top: 15px;
-  margin-right: 10px;
+  margin-right: 90px;
 }
 .sales_div {
   text-align: center;
 }
-.sales_rep_image {
-  width: 462px;
-  height: 300px;
-}
 .info {
   margin-top: -80px;
-  margin-bottom: 70px;
-  margin-left: 150px;
+  margin-bottom: 40px;
+  text-align: center;
 }
-.text {
-  font-size: 25px;
+.text_name {
+  font-size: 30px;
   font-family: Poppins;
-  font-weight: 500;
+  font-weight: 400;
+  color: #fff;
+}
+.text_address {
+  font-size: 18px;
+  font-family: Poppins;
+  font-weight: lighter;
+  color: #fff;
 }
 .font {
+  margin-left: 10px;
   font-family: Poppins;
-  font-weight: 800;
+  font-weight: 500;
+  font-size: 20px;
 }
 .contact_info {
   text-align: center;
+  margin: 0px;
 }
 .contact_me {
+  /* margin: 0; */
   font-size: 22px;
   font-family: Poppins;
-  font-weight: 800;
+  font-weight: 500;
 }
 .inline {
   display: inline-block;
@@ -431,21 +421,35 @@ export default {
 .email {
   font-size: 20px;
   margin-left: 4px;
+  margin-top: 10px;
+  margin-bottom: 0px;
   font-family: Poppins;
-  font-weight: 500;
+  font-weight: 300;
+  /* font-weight: lighter; */
 }
 .phone {
   font-size: 20px;
   margin-left: 4px;
+  margin-top: 10px;
+  margin-bottom: 0px;
   font-family: Poppins;
-  font-weight: 500;
+  font-weight: 300;
 }
 .contact_me_btn {
+  margin-left: 15px;
   font-family: Poppins;
   font-size: 25px;
-  font-weight: 600;
+  font-weight: 500;
 }
 .center {
   text-align: center;
+}
+.email_block {
+  margin-top: 0px;
+}
+.info_block_new {
+  width: 100%;
+  position: absolute;
+  margin-top: -280px;
 }
 </style>
