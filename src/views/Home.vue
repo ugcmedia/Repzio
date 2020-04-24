@@ -115,7 +115,7 @@ export default {
     }
   },
   mounted() {
-    this.info.companyname = this.json.CompanyName;
+    this.info.companyname = this.json.SalesRep.CompanyName;
     this.info.message = this.json.Message;
     this.info.firstname = this.json.SalesRep.FirstName;
     this.info.lastname = this.json.SalesRep.LastName;
@@ -223,7 +223,10 @@ export default {
   position: relative;
   background-color: #fefefe;
   padding: 0;
-  margin: auto;
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 100px;
   border: 1px solid #888;
   border-radius: 10px;
   width: 420px;
@@ -269,7 +272,7 @@ export default {
   z-index: 1;
   font-weight: lighter;
   border-radius: 5px;
-  margin-top: -17px;
+  margin-top: 80px;
   margin-left: 135px;
   line-height: 45px !important;
   padding: 0px 5px 8px 5px;
@@ -396,8 +399,8 @@ export default {
 .contact_me_btn {
   margin-left: 15px;
   font-family: Poppins;
-  font-size: 25px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 100;
 }
 .center {
   text-align: center;
@@ -444,6 +447,22 @@ export default {
   }
   .info_block_new {
     margin-top: -250px;
+  }
+  .modal-content {
+    width: 320px;
+  }
+  .contact_container {
+    width: 320px;
+  }
+  .sales_rep {
+    margin-right: 30px;
+  }
+  .sales_rep_image {
+    width: 320px;
+    height: 220px;
+  }
+  .close {
+    margin-left: 90px;
   }
 }
 @media (min-width: 450px) and (max-width: 600px) {

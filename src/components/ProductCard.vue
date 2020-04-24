@@ -30,7 +30,13 @@
       </div>
       <div class="modal-content">
         <div class="product_container">
-          <img :src="modal.PhotoName" alt="Product" width="462" height="450" />
+          <img
+            :src="modal.PhotoName"
+            class="product_image"
+            alt="Product"
+            width="462"
+            height="450"
+          />
           <div class="buttons">
             <div class="inline first_group">
               <button class="count_btn plus" @click="increment">+</button>
@@ -226,9 +232,12 @@ export default {
 
 /* Modal Content */
 .modal-content {
+  margin-top: 120px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 100px;
   position: relative;
   background-color: #fefefe;
-  margin: auto;
   padding: 0;
   border: 1px solid #888;
   border-radius: 10px;
@@ -275,7 +284,7 @@ export default {
   z-index: 1;
   font-weight: lighter;
   border-radius: 5px;
-  margin-top: -17px;
+  margin-top: 100px;
   margin-left: 170px;
   line-height: 45px !important;
   padding: 0px 5px 8px 5px;
@@ -441,6 +450,34 @@ export default {
   font-family: Poppins;
   font-size: 20px;
   font-weight: 100;
+}
+.product_image {
+  padding: 10px;
+}
+@media (max-width: 450px) {
+  .modal-content {
+    width: 320px;
+  }
+  .product_container {
+    width: 320px;
+  }
+  .product_image {
+    width: 310px;
+    height: 310px;
+  }
+  .first_group {
+    margin-right: 10px;
+  }
+  .contact_button {
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+  .cart_button {
+    margin-left: 10px;
+  }
+  .close {
+    margin-left: 90px;
+  }
 }
 @media (max-width: 600px) {
   .card_container {
