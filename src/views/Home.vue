@@ -1,18 +1,17 @@
 <template>
   <div class="container">
-    <div class="nav_container">
-      <div class="box">
-        <div>
-          <img v-if="loaded" :src="url" alt="logo" />
-        </div>
-        <div>
-          <button @click="show_modal" class="contact_button">
-            <i class="fad fa-user-headset fa-2x"></i>
-            <span class="contact_me_btn"
-              >Contact&nbsp;{{ info.firstname }}</span
-            >
-          </button>
-        </div>
+    <div class="nav">
+      <div class="inline logo">
+        <img class="logoimg" v-if="loaded" :src="url" alt="logo" />
+      </div>
+      <div class="inline cbtn">
+        <button @click="show_modal" class="contact_button">
+          <i class="fad fa-user-headset fa-2x"></i>
+          <span class="contact_me_btn">Contact&nbsp;{{ info.firstname }}</span>
+        </button>
+        <span class="center">
+          <i class="fad fa-cart-arrow-down fa-2x" style="color:#9100a3;"></i>
+        </span>
       </div>
     </div>
     <div class="main_image">
@@ -29,7 +28,7 @@
     </div>
     <div v-if="clicked" id="contact" class="modal center" @click="exit_modal">
       <div class="center">
-        <i @click="hide_modal" class="fal fa-times close"></i>
+        <i @click="hide_modal" class="fal fa-times fa-lg close"></i>
       </div>
       <div class="modal-content">
         <div class="contact_container">
@@ -46,9 +45,8 @@
           <div class="sales_div">
             <img
               src="../assets/images/salesrep.jpeg"
-              alt=""
-              width="500"
-              height="310"
+              alt="Sales Rep Image"
+              class="sales_rep_image"
             />
           </div>
           <div class="info">
@@ -150,17 +148,6 @@ export default {
 .container {
   overflow: hidden;
 }
-.nav_container {
-  margin-right: auto;
-  margin-left: auto;
-  width: 956px;
-  margin-bottom: 10px;
-}
-.box {
-  width: 956px;
-  display: flex;
-  justify-content: space-between;
-}
 .cover {
   background-image: url("https://ugcmedia.com/images/hero_1440_narrow4.png");
   background-color: #898a8b;
@@ -193,7 +180,7 @@ export default {
 .content {
   text-align: center;
   margin-top: -20px;
-  margin-bottom: 5px;
+  margin-bottom: 50px;
 }
 .inline {
   display: inline-block;
@@ -216,55 +203,6 @@ export default {
   font-weight: 400;
 }
 
-@media (max-width: 600px) {
-  .bg {
-    height: 200px;
-    width: auto;
-  }
-  .products_container {
-    width: 250px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .box {
-    width: calc(100vw - 80px);
-  }
-}
-@media (min-width: 600px) and (max-width: 800px) {
-  .bg {
-    height: 300px;
-    width: auto;
-  }
-  .products_container {
-    width: 550px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .box {
-    width: calc(100vw - 80px);
-  }
-}
-@media (min-width: 800px) and (max-width: 1200px) {
-  .bg {
-    height: 400px;
-    width: auto;
-  }
-  .products_container {
-    width: 750px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .box {
-    width: calc(100vw - 80px);
-  }
-}
-@media (min-width: 1200px) {
-  .info_block {
-    left: 30%;
-    margin-top: -400px;
-  }
-}
-
 /* Moda css */
 .modal {
   display: block; /* Hidden by default */
@@ -284,11 +222,11 @@ export default {
 .modal-content {
   position: relative;
   background-color: #fefefe;
-  margin: auto;
   padding: 0;
+  margin: auto;
   border: 1px solid #888;
   border-radius: 10px;
-  width: 480px;
+  width: 420px;
   height: auto;
   overflow: hidden;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -324,16 +262,17 @@ export default {
 /* The Close Button */
 .close {
   position: absolute;
-  width: 34px;
+  width: 44px;
   height: 32px;
   color: #fff;
   background: #9100a3;
   z-index: 1;
-  font-size: 35px;
   font-weight: lighter;
   border-radius: 5px;
-  margin-top: -10px;
-  margin-left: 220px;
+  margin-top: -17px;
+  margin-left: 135px;
+  line-height: 45px !important;
+  padding: 0px 5px 8px 5px;
 }
 
 .close:hover,
@@ -343,17 +282,34 @@ export default {
   cursor: pointer;
 }
 .contact_button {
-  margin-right: -50px;
   color: white;
   width: 250px;
   height: 60px;
   background: #9100a3;
   border: 1px solid #9100a3;
   border-radius: 6px;
+  outline: none;
+  margin-right: 20px;
+}
+.nav {
+  width: 956px;
+  height: 70px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.logo {
+  float: left;
+}
+.cbtn {
+  float: right;
+  margin-right: 30px;
+}
+.logoimg {
+  margin-left: 50px;
 }
 .contact_container {
   position: relative;
-  width: 480px;
+  width: 420px;
   background: #ffffff;
   border: 0 solid #c0c0c0;
   box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.12);
@@ -378,6 +334,10 @@ export default {
   font-size: 25px;
   margin-top: 15px;
   margin-right: 90px;
+}
+.sales_rep_image {
+  width: 440px;
+  height: 290px;
 }
 .sales_div {
   text-align: center;
@@ -410,7 +370,6 @@ export default {
   margin: 0px;
 }
 .contact_me {
-  /* margin: 0; */
   font-size: 22px;
   font-family: Poppins;
   font-weight: 500;
@@ -425,7 +384,6 @@ export default {
   margin-bottom: 0px;
   font-family: Poppins;
   font-weight: 300;
-  /* font-weight: lighter; */
 }
 .phone {
   font-size: 20px;
@@ -451,5 +409,110 @@ export default {
   width: 100%;
   position: absolute;
   margin-top: -280px;
+}
+@media (max-width: 450px) {
+  .bg {
+    height: 200px;
+    width: auto;
+  }
+  .products_container {
+    width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .nav {
+    width: 350px;
+    height: 55px;
+  }
+  .logoimg {
+    margin-left: 0px;
+  }
+  .cover {
+    height: 250px;
+  }
+  .contact_button {
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 180px;
+    height: 40px;
+  }
+  .cbtn {
+    margin-right: 0px;
+  }
+  .contact_me_btn {
+    font-size: 19px;
+  }
+  .info_block_new {
+    margin-top: -250px;
+  }
+}
+@media (min-width: 450px) and (max-width: 600px) {
+  .bg {
+    height: 200px;
+    width: auto;
+  }
+  .products_container {
+    width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .nav {
+    width: 350px;
+    height: 55px;
+  }
+  .logoimg {
+    margin-left: -50px;
+  }
+  .cover {
+    height: 250px;
+  }
+  .contact_button {
+    margin-right: 10px;
+    width: 220px;
+    height: 50px;
+  }
+  .cbtn {
+    margin-right: -30px;
+  }
+  .contact_me_btn {
+    font-size: 21px;
+  }
+  .info_block_new {
+    margin-top: -250px;
+  }
+}
+@media (min-width: 600px) and (max-width: 800px) {
+  .bg {
+    height: 300px;
+    width: auto;
+  }
+  .products_container {
+    width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .nav {
+    width: 550px;
+  }
+}
+@media (min-width: 800px) and (max-width: 1200px) {
+  .bg {
+    height: 400px;
+    width: auto;
+  }
+  .products_container {
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .nav {
+    width: 750px;
+  }
+}
+@media (min-width: 1200px) {
+  .info_block {
+    left: 30%;
+    margin-top: -400px;
+  }
 }
 </style>

@@ -3,9 +3,3 @@
     <router-view />
   </div>
 </template>
-
-<style>
-/* #app {
-  padding-bottom: 20px;
-} */
-</style>

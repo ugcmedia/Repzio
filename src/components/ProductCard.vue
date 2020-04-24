@@ -26,7 +26,7 @@
       class="modal"
     >
       <div>
-        <i @click="hide_modal" class="fal fa-times close"></i>
+        <i @click="hide_modal" class="fal fa-times fa-lg close"></i>
       </div>
       <div class="modal-content">
         <div class="product_container">
@@ -268,16 +268,17 @@ export default {
 /* The Close Button */
 .close {
   position: absolute;
-  width: 34px;
+  width: 44px;
   height: 32px;
   color: #fff;
   background: #9100a3;
   z-index: 1;
-  font-size: 35px;
   font-weight: lighter;
   border-radius: 5px;
-  margin-top: -10px;
-  margin-left: 220px;
+  margin-top: -17px;
+  margin-left: 170px;
+  line-height: 45px !important;
+  padding: 0px 5px 8px 5px;
 }
 
 .close:hover,
@@ -308,7 +309,6 @@ export default {
   font-size: 24.3px;
   color: #ffffff;
   text-align: center;
-  /* margin-left: 150px; */
   outline: none;
   border: none;
 }
@@ -341,7 +341,6 @@ export default {
   border-color: #9100a3;
   text-align: center;
   outline: none;
-  /* z-index: 0; */
 }
 .plus {
   border-right: none;
@@ -420,7 +419,6 @@ export default {
   cursor: pointer;
 }
 .cart_button {
-  /* background: yellow; */
   margin-left: 20px;
   display: inline-block;
   height: 60px;
@@ -443,5 +441,13 @@ export default {
   font-family: Poppins;
   font-size: 20px;
   font-weight: 100;
+}
+@media (max-width: 600px) {
+  .card_container {
+    width: 300px;
+  }
+  .photo_name {
+    height: 250px;
+  }
 }
 </style>
