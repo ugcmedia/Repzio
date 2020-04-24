@@ -15,11 +15,16 @@
       </div>
       <div></div>
     </div>
-    <div v-if="clicked_product" id="myModal" class="modal">
+    <div
+      v-if="clicked_product"
+      id="myModal"
+      @click="exit_product_modal"
+      class="modal"
+    >
+      <div>
+        <span @click="hide_modal" class="close">&times;</span>
+      </div>
       <div class="modal-content">
-        <div>
-          <span @click="hide_modal" class="close">&times;</span>
-        </div>
         <div class="product_container">
           <img
             :src="modal.PhotoName"
@@ -63,11 +68,16 @@
         </div>
       </div>
     </div>
-    <div v-if="clicked_contact" id="contact" class="modal">
+    <div
+      v-if="clicked_contact"
+      id="contact"
+      @click="exit_contact_modal"
+      class="modal"
+    >
+      <div>
+        <span @click="hide_contact_modal" class="close">&times;</span>
+      </div>
       <div class="modal-content">
-        <div>
-          <span @click="hide_contact_modal" class="close">&times;</span>
-        </div>
         <div class="contact_container">
           <div class="header">
             <div class="contact_logo">
@@ -221,6 +231,18 @@ export default {
     hide_contact_modal() {
       this.clicked_contact = false;
     },
+    exit_contact_modal(e) {
+      var modal = document.getElementById("contact");
+      if (e.target == modal) {
+        this.clicked_contact = false;
+      }
+    },
+    exit_product_modal(e) {
+      var modal = document.getElementById("myModal");
+      if (e.target == modal) {
+        this.clicked_product = false;
+      }
+    },
     increment() {
       if (this.count >= 0) {
         this.count++;
@@ -256,6 +278,7 @@ export default {
   margin: 9px;
 }
 .item_name {
+  padding: 0px 10px;
   height: 30px;
   font-family: Poppins;
   font-weight: 500;
@@ -283,7 +306,7 @@ export default {
     #9100a3 1%,
     #3e0045 100%
   );
-  border-radius: 5%;
+  border-radius: 10px;
   padding: 20px;
   font-family: Poppins;
   font-weight: 200;
@@ -352,13 +375,17 @@ export default {
 
 /* The Close Button */
 .close {
-  width: 25px;
+  position: absolute;
+  width: 40px;
   height: 35px;
   color: #fff;
   background: #9100a3;
-  float: right;
+  z-index: 1;
   font-size: 35px;
   font-weight: bold;
+  border-radius: 5px;
+  margin-top: -10px;
+  margin-left: 220px;
 }
 
 .close:hover,
@@ -375,6 +402,7 @@ export default {
   box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.12);
   border-radius: 2.7px;
   padding-bottom: 50px;
+  margin-right: 20px;
 }
 
 .product_photo_name {

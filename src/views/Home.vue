@@ -26,11 +26,11 @@
         <ProductCard />
       </div>
     </div>
-    <div v-if="clicked" id="contact" class="modal">
+    <div v-if="clicked" id="contact" class="modal center" @click="exit_modal">
+      <div>
+        <span @click="hide_modal" class="close">&times;</span>
+      </div>
       <div class="modal-content">
-        <div>
-          <span @click="hide_modal" class="close">&times;</span>
-        </div>
         <div class="contact_container">
           <div class="header">
             <div class="contact_logo">
@@ -131,6 +131,12 @@ export default {
     },
     hide_modal() {
       this.clicked = false;
+    },
+    exit_modal(e) {
+      var modal = document.getElementById("contact");
+      if (e.target == modal) {
+        this.clicked = false;
+      }
     }
   }
 };
@@ -333,13 +339,17 @@ export default {
 
 /* The Close Button */
 .close {
-  width: 25px;
+  position: absolute;
+  width: 40px;
   height: 35px;
   color: #fff;
   background: #9100a3;
-  float: right;
+  z-index: 1;
   font-size: 35px;
   font-weight: bold;
+  border-radius: 5px;
+  margin-top: -10px;
+  margin-left: 220px;
 }
 
 .close:hover,
@@ -358,6 +368,7 @@ export default {
   border-radius: 6px;
 }
 .contact_container {
+  position: relative;
   width: 480px;
   background: #ffffff;
   border: 0 solid #c0c0c0;
@@ -433,5 +444,8 @@ export default {
   font-family: Poppins;
   font-size: 25px;
   font-weight: 600;
+}
+.center {
+  text-align: center;
 }
 </style>
